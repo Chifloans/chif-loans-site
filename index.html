@@ -261,6 +261,11 @@
     background:var(--blue-pale);border:1px solid var(--line);font-size:13.5px;color:var(--ink);
   }
   #app-success.show{display:block;}
+  #app-error{
+    display:none;margin-top:16px;padding:14px 16px;border-radius:6px;
+    background:var(--amber-pale);border:1px solid var(--amber);font-size:13.5px;color:var(--ink);
+  }
+  #app-error.show{display:block;}
 
   .side-card{border:1px solid var(--line);border-radius:8px;padding:22px;background:var(--card);}
   .side-card + .side-card{margin-top:16px;}
@@ -658,9 +663,10 @@
           </div>
         </fieldset>
 
-        <button class="btn btn-primary btn-block btn-lg" type="submit">Submit Quick App</button>
-        <p class="form-foot">Submitting opens your email client with everything filled in and addressed to us &mdash; review it and hit send.</p>
-        <div id="app-success">Your email is ready to send &mdash; check your email app. We typically reply within one business day.</div>
+        <button class="btn btn-primary btn-block btn-lg" type="submit" id="app-submit-btn">Submit Quick App</button>
+        <p class="form-foot">Submitting sends your information directly to our team &mdash; no email client required.</p>
+        <div id="app-success">Thanks &mdash; your quick app was submitted. We typically reply within one business day.</div>
+        <div id="app-error">Something went wrong submitting your quick app. Please try again, or email us directly at <a href="mailto:info@chifhomes.com" style="color:var(--blue-deep);font-weight:700;">info@chifhomes.com</a>.</div>
       </form>
 
       <div>
@@ -872,47 +878,65 @@
     menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 
+  var SUPABASE_URL = "https://zwoknvgmciqghjyyhoki.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3b2tudmdtY2lxZ2hqeXlob2tpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNzQ2OTIsImV4cCI6MjEwMTk1MDY5Mn0.2aNIYwsP40EKvmKvunvK9Mc27IgC2R3qB0kF8cEnBEc";
+
   var form = document.getElementById('quickApp');
   var successBox = document.getElementById('app-success');
+  var errorBox = document.getElementById('app-error');
+  var submitBtn = document.getElementById('app-submit-btn');
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     var val = function(id){ return document.getElementById(id).value.trim(); };
-    var lines = [
-      "New Quick App Submission",
-      "",
-      "LOAN",
-      "Loan type: " + val('loanType'),
-      "Transaction type: " + val('txnType'),
-      "Purchase price / est. value: " + val('propValue'),
-      "Loan amount requested: " + val('loanAmount'),
-      "",
-      "PROPERTY",
-      "Address: " + val('propAddress'),
-      "City: " + val('propCity'),
-      "State: " + val('propState'),
-      "",
-      "BORROWER",
-      "Borrowing as: " + val('entity'),
-      "Estimated credit score: " + val('credit'),
-      "Investing experience: " + val('experience'),
-      "Target close date: " + val('closeDate'),
-      "",
-      "CONTACT",
-      "Name: " + val('fullName'),
-      "Phone: " + val('cPhone'),
-      "Email: " + val('cEmail'),
-      "",
-      "NOTES",
-      val('notes') || "(none)"
-    ];
+    var payload = {
+      loan_type: val('loanType'),
+      transaction_type: val('txnType'),
+      property_value: val('propValue'),
+      loan_amount: val('loanAmount'),
+      property_address: val('propAddress'),
+      property_city: val('propCity'),
+      property_state: val('propState'),
+      borrowing_as: val('entity'),
+      credit_score: val('credit'),
+      experience: val('experience'),
+      target_close_date: val('closeDate') || null,
+      full_name: val('fullName'),
+      phone: val('cPhone'),
+      email: val('cEmail'),
+      notes: val('notes') || null
+    };
 
-    var subject = encodeURIComponent("Quick App - " + (val('fullName') || "New Inquiry"));
-    var body = encodeURIComponent(lines.join("\n"));
-    window.location.href = "mailto:info@chifhomes.com?subject=" + subject + "&body=" + body;
+    successBox.classList.remove('show');
+    errorBox.classList.remove('show');
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
 
-    successBox.classList.add('show');
+    fetch(SUPABASE_URL + "/rest/v1/quick_app_submissions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(payload)
+    }).then(function(res){
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Quick App";
+      if (res.ok) {
+        form.reset();
+        successBox.classList.add('show');
+      } else {
+        errorBox.classList.add('show');
+      }
+    }).catch(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Quick App";
+      errorBox.classList.add('show');
+    });
   });
 })();
 </script>
