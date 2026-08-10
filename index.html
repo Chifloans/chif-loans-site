@@ -1,0 +1,918 @@
+<title>CHIF Loans — Business-Purpose Real Estate Financing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --ink:#0C1116;
+    --ink-soft:#4B5866;
+    --ink-faint:#7A8894;
+    --blue:#139FD6;
+    --blue-deep:#0A6E92;
+    --blue-pale:#E4F4FA;
+    --amber:#B8722A;
+    --amber-pale:#F6E9DA;
+    --paper:#F5F8F9;
+    --card:#FFFFFF;
+    --line:rgba(12,17,22,0.12);
+    --line-strong:rgba(12,17,22,0.22);
+    --shadow:0 1px 2px rgba(12,17,22,0.04);
+  }
+  :root[data-theme="dark"]{
+    --ink:#ECF2F5;
+    --ink-soft:#AEBAC3;
+    --ink-faint:#7E8A93;
+    --blue:#3FC2EF;
+    --blue-deep:#8FE0F9;
+    --blue-pale:rgba(63,194,239,0.13);
+    --amber:#E3A15C;
+    --amber-pale:rgba(227,161,92,0.14);
+    --paper:#0A1116;
+    --card:#111A21;
+    --line:rgba(236,242,245,0.12);
+    --line-strong:rgba(236,242,245,0.24);
+    --shadow:0 1px 2px rgba(0,0,0,0.3);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#ECF2F5;
+      --ink-soft:#AEBAC3;
+      --ink-faint:#7E8A93;
+      --blue:#3FC2EF;
+      --blue-deep:#8FE0F9;
+      --blue-pale:rgba(63,194,239,0.13);
+      --amber:#E3A15C;
+      --amber-pale:rgba(227,161,92,0.14);
+      --paper:#0A1116;
+      --card:#111A21;
+      --line:rgba(236,242,245,0.12);
+      --line-strong:rgba(236,242,245,0.24);
+      --shadow:0 1px 2px rgba(0,0,0,0.3);
+    }
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Montserrat','Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  h1,h2,h3{font-weight:800;letter-spacing:-0.02em;text-wrap:balance;margin:0;}
+  p{margin:0;}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-size:12px;
+    font-weight:700;
+    color:var(--blue-deep);
+  }
+  :root[data-theme="dark"] .eyebrow, body:not([data-theme="light"]) .eyebrow{color:var(--blue);}
+  @media (prefers-color-scheme:light){ :root:not([data-theme="dark"]) .eyebrow{color:var(--blue-deep);} }
+
+  button, input, select, textarea{font-family:inherit;font-size:15px;}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .headbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 28px;max-width:1120px;margin:0 auto;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;background:none;border:none;padding:0;}
+  .brand svg{width:34px;height:34px;flex-shrink:0;}
+  .brand .word{font-size:19px;font-weight:800;letter-spacing:-0.01em;white-space:nowrap;}
+  .brand .word .c1{color:var(--blue);}
+  .brand .word .c2{color:var(--ink);}
+
+  nav.primary{display:flex;align-items:center;gap:2px;}
+  nav.primary a{
+    display:block;padding:9px 13px;border-radius:5px;
+    font-size:14px;font-weight:600;text-decoration:none;color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  nav.primary a:hover{color:var(--ink);background:var(--blue-pale);}
+  nav.primary a[aria-current="page"]{color:var(--blue-deep);}
+  :root[data-theme="dark"] nav.primary a[aria-current="page"]{color:var(--blue);}
+
+  .head-actions{display:flex;align-items:center;gap:10px;}
+  .phone-link{
+    font-size:14px;font-weight:700;text-decoration:none;color:var(--ink);
+    display:flex;align-items:center;gap:6px;white-space:nowrap;
+  }
+  .phone-link svg{width:15px;height:15px;color:var(--blue-deep);}
+  :root[data-theme="dark"] .phone-link svg{color:var(--blue);}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:11px 20px;border-radius:5px;font-weight:700;font-size:14px;
+    text-decoration:none;border:1px solid transparent;cursor:pointer;
+    transition:transform .12s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--blue);color:#04222E;}
+  .btn-primary:hover{background:var(--blue-deep);}
+  :root[data-theme="dark"] .btn-primary{color:#04222E;}
+  .btn-outline{background:transparent;border-color:var(--line-strong);color:var(--ink);}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue-deep);}
+  :root[data-theme="dark"] .btn-outline:hover{color:var(--blue);}
+  .btn-block{width:100%;}
+  .btn-lg{padding:14px 26px;font-size:15px;}
+
+  .menu-toggle{display:none;background:none;border:1px solid var(--line-strong);border-radius:5px;padding:8px 10px;cursor:pointer;color:var(--ink);}
+  .menu-toggle svg{width:20px;height:20px;display:block;}
+
+  @media (max-width:860px){
+    nav.primary{
+      position:fixed;inset:60px 0 0 0;background:var(--paper);
+      flex-direction:column;align-items:stretch;padding:10px 20px 30px;
+      border-top:1px solid var(--line);
+      transform:translateY(-8px);opacity:0;pointer-events:none;
+      transition:opacity .15s ease, transform .15s ease;
+      overflow-y:auto;
+    }
+    nav.primary.open{opacity:1;transform:translateY(0);pointer-events:auto;}
+    nav.primary a{padding:14px 6px;font-size:16px;border-bottom:1px solid var(--line);}
+    .head-actions .btn-outline{display:none;}
+    .menu-toggle{display:block;}
+  }
+
+  /* ---------- Page/section plumbing ---------- */
+  .page{display:none;}
+  .page.active{display:block;}
+  section{padding:64px 0;}
+  section.tight{padding:44px 0;}
+  .hr{border:none;border-top:1px solid var(--line);}
+  .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .band-dark{background:var(--ink);color:var(--paper);}
+  :root[data-theme="dark"] .band-dark, body:not([data-theme="light"]) .band-dark{background:#060A0D;}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:76px 0 54px;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;}
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px;}}
+  .hero h1{font-size:46px;line-height:1.08;margin-top:14px;}
+  @media (max-width:560px){.hero h1{font-size:33px;}}
+  .hero .sub{margin-top:20px;font-size:17px;color:var(--ink-soft);max-width:52ch;}
+  .hero .ctas{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;}
+
+  .trust-strip{display:flex;gap:0;margin-top:40px;border-top:1px solid var(--line);flex-wrap:wrap;}
+  .trust-strip div{flex:1 1 160px;padding:16px 0 0;border-left:1px solid var(--line);padding-left:16px;}
+  .trust-strip div:first-child{border-left:none;padding-left:0;}
+  .trust-strip strong{display:block;font-size:15px;font-weight:800;}
+  .trust-strip span{display:block;font-size:12.5px;color:var(--ink-faint);margin-top:2px;}
+
+  .hero-panel{
+    border:1px solid var(--line);background:var(--card);border-radius:8px;padding:26px;box-shadow:var(--shadow);
+  }
+  .hero-panel .eyebrow{margin-bottom:10px;}
+  .hero-panel h3{font-size:18px;margin-bottom:14px;}
+  .spec-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:14px;}
+  .spec-row:first-of-type{border-top:none;}
+  .spec-row .k{color:var(--ink-faint);}
+  .spec-row .v{font-weight:700;text-align:right;font-variant-numeric:tabular-nums;}
+
+  /* ---------- Generic section header ---------- */
+  .section-head{max-width:62ch;margin-bottom:36px;}
+  .section-head h2{font-size:31px;margin-top:10px;}
+  .section-head p{margin-top:14px;color:var(--ink-soft);font-size:16px;}
+  .page-hero{padding:52px 0 8px;}
+  .page-hero h1{font-size:36px;margin-top:10px;}
+  .page-hero p{margin-top:14px;color:var(--ink-soft);font-size:16px;max-width:60ch;}
+
+  /* ---------- About / why ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  @media (max-width:820px){.about-grid{grid-template-columns:1fr;gap:30px;}}
+  .about-grid p + p{margin-top:14px;}
+  .about-grid .lead{color:var(--ink-soft);}
+  .pillbox{border:1px solid var(--line);border-radius:8px;padding:22px;background:var(--card);}
+  .pillbox + .pillbox{margin-top:14px;}
+  .pillbox h4{font-size:14.5px;margin-bottom:6px;}
+  .pillbox p{font-size:14px;color:var(--ink-soft);}
+
+  /* ---------- Tagline strip ---------- */
+  .tagline{
+    text-align:left;padding:56px 0;border-top:1px solid var(--line-strong);
+  }
+  .tagline .wrap{display:flex;align-items:center;gap:26px;flex-wrap:wrap;}
+  .tagline .mark{font-size:13px;font-weight:800;letter-spacing:0.1em;color:var(--blue-deep);white-space:nowrap;}
+  :root[data-theme="dark"] .tagline .mark{color:var(--blue);}
+  .tagline p{font-size:24px;font-weight:700;letter-spacing:-0.01em;max-width:44ch;text-wrap:balance;}
+  @media (max-width:560px){.tagline p{font-size:19px;}}
+
+  /* ---------- Loan type cards ---------- */
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  @media (max-width:860px){.card-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.card-grid{grid-template-columns:1fr;}}
+  .loan-card{background:var(--card);padding:26px;}
+  .loan-card .chip{
+    width:38px;height:38px;border-radius:6px;background:var(--blue-pale);
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  }
+  .loan-card .chip svg{width:19px;height:19px;color:var(--blue-deep);}
+  :root[data-theme="dark"] .loan-card .chip svg{color:var(--blue);}
+  .loan-card h3{font-size:16.5px;}
+  .loan-card p{margin-top:8px;font-size:14px;color:var(--ink-soft);}
+
+  .note-box{
+    margin-top:26px;border:1px dashed var(--line-strong);border-radius:8px;
+    padding:18px 20px;font-size:14px;color:var(--ink-soft);
+  }
+
+  /* ---------- Glossary ---------- */
+  .glossary{border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  .glossary .g-row{display:grid;grid-template-columns:180px 1fr;gap:20px;padding:15px 20px;border-top:1px solid var(--line);}
+  .glossary .g-row:first-child{border-top:none;}
+  @media (max-width:640px){.glossary .g-row{grid-template-columns:1fr;gap:4px;}}
+  .glossary dt{font-weight:800;font-size:13.5px;letter-spacing:0.02em;}
+  .glossary dd{margin:0;font-size:14px;color:var(--ink-soft);}
+
+  /* ---------- Quick App ---------- */
+  .app-shell{display:grid;grid-template-columns:1fr 300px;gap:44px;align-items:start;}
+  @media (max-width:900px){.app-shell{grid-template-columns:1fr;}}
+  form.appform{border:1px solid var(--line);border-radius:8px;padding:30px;background:var(--card);}
+  .f-group{margin-bottom:20px;}
+  .f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:520px){.f-row{grid-template-columns:1fr;}}
+  .f-row + .f-group, .f-group + .f-row{margin-top:20px;}
+  label{display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-faint);margin-bottom:7px;}
+  input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{
+    width:100%;padding:11px 12px;border:1px solid var(--line-strong);border-radius:5px;
+    background:var(--paper);color:var(--ink);
+  }
+  textarea{resize:vertical;min-height:88px;}
+  fieldset{border:1px solid var(--line);border-radius:8px;padding:16px 18px 6px;margin:0 0 20px;}
+  fieldset legend{padding:0 6px;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-faint);}
+  .radio-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-bottom:10px;}
+  @media (max-width:520px){.radio-grid{grid-template-columns:1fr;}}
+  .radio-opt{display:flex;align-items:center;gap:8px;font-size:14px;}
+  .radio-opt input{accent-color:var(--blue);}
+  .form-foot{font-size:12.5px;color:var(--ink-faint);margin-top:14px;}
+  #app-success{
+    display:none;margin-top:16px;padding:14px 16px;border-radius:6px;
+    background:var(--blue-pale);border:1px solid var(--line);font-size:13.5px;color:var(--ink);
+  }
+  #app-success.show{display:block;}
+
+  .side-card{border:1px solid var(--line);border-radius:8px;padding:22px;background:var(--card);}
+  .side-card + .side-card{margin-top:16px;}
+  .side-card h4{font-size:14.5px;margin-bottom:8px;}
+  .side-card p{font-size:13.5px;color:var(--ink-soft);}
+  .side-card ul{margin:10px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);}
+  .side-card li + li{margin-top:6px;}
+
+  /* ---------- Partner / Book pages ---------- */
+  .split-card{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card);
+  }
+  @media (max-width:820px){.split-card{grid-template-columns:1fr;}}
+  .split-card .p-side{padding:36px;}
+  .split-card .p-side + .p-side{border-left:1px solid var(--line);}
+  @media (max-width:820px){.split-card .p-side + .p-side{border-left:none;border-top:1px solid var(--line);}}
+  .split-card h3{font-size:19px;}
+  .split-card p{margin-top:12px;font-size:14.5px;color:var(--ink-soft);}
+  .step-list{margin:16px 0 0;padding:0;list-style:none;}
+  .step-list li{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14px;}
+  .step-list li:first-child{border-top:none;}
+  .step-list .n{font-weight:800;color:var(--blue-deep);font-size:13px;flex-shrink:0;width:18px;}
+  :root[data-theme="dark"] .step-list .n{color:var(--blue);}
+
+  /* ---------- Where we fund ---------- */
+  .state-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;}
+  @media (max-width:760px){.state-grid{grid-template-columns:repeat(6,1fr);}}
+  @media (max-width:460px){.state-grid{grid-template-columns:repeat(5,1fr);}}
+  .state-chip{
+    border:1px solid var(--line);border-radius:5px;padding:9px 0;text-align:center;
+    font-size:12.5px;font-weight:700;letter-spacing:0.02em;background:var(--card);color:var(--ink-soft);
+  }
+  .state-chip.exception{
+    background:var(--amber-pale);border-color:var(--amber);color:var(--amber);
+  }
+  .legend{display:flex;gap:22px;margin-top:22px;flex-wrap:wrap;}
+  .legend .item{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-soft);}
+  .legend .swatch{width:13px;height:13px;border-radius:3px;border:1px solid var(--line);}
+  .legend .swatch.exception{background:var(--amber-pale);border-color:var(--amber);}
+
+  /* ---------- CTA band ---------- */
+  .cta-band{padding:54px 0;text-align:left;}
+  .cta-band .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+  .cta-band h2{font-size:25px;color:var(--paper);}
+  .cta-band p{color:rgba(245,248,249,0.68);margin-top:8px;font-size:14.5px;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink);color:var(--paper);padding:52px 0 26px;}
+  :root[data-theme="dark"] footer, body:not([data-theme="light"]) footer{background:#060A0D;}
+  footer .f-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px;}
+  @media (max-width:760px){footer .f-grid{grid-template-columns:1fr;gap:30px;}}
+  footer .brand .word{color:var(--paper);}
+  footer .brand .word .c2{color:var(--paper);}
+  footer p{color:rgba(245,248,249,0.62);font-size:13.5px;margin-top:14px;max-width:38ch;}
+  footer h5{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(245,248,249,0.5);margin-bottom:14px;font-weight:700;}
+  footer .flinks{list-style:none;margin:0;padding:0;}
+  footer .flinks li{margin-bottom:10px;}
+  footer .flinks a{color:rgba(245,248,249,0.85);text-decoration:none;font-size:14px;}
+  footer .flinks a:hover{color:var(--blue);}
+  footer .contact-line{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:rgba(245,248,249,0.85);margin-bottom:10px;}
+  footer .contact-line svg{width:15px;height:15px;flex-shrink:0;margin-top:3px;color:var(--blue);}
+  .disclosure{margin-top:38px;padding-top:24px;border-top:1px solid rgba(245,248,249,0.14);font-size:12px;line-height:1.7;color:rgba(245,248,249,0.48);}
+  .disclosure p + p{margin-top:8px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+  }
+</style>
+
+<header>
+  <div class="headbar">
+    <button class="brand" onclick="go('/')" aria-label="CHIF Loans home">
+      <svg viewBox="0 0 245 327" aria-hidden="true">
+        <polygon fill="var(--blue)" points="86.1,132.8 118.8,103.8 118.8,61.1 86.1,80.6"/>
+        <polygon fill="var(--blue)" points="193.8,80.6 161.2,61.1 161.2,103.8 193.8,132.7"/>
+        <path fill="var(--blue)" d="M242.9,202.4l-49.1-43.6l-32.7-29l-17.4-15.5c-2.1-1.9-5.4-1.9-7.5,0l-17.5,15.5l-32.7,29l-49.1,43.5c-3.9,3.4-1.4,9.9,3.7,9.9h45.3v53.6h32.7v-53.6h42.4v53.6h32.7v-53.6h45.3C244.4,212.2,246.8,205.8,242.9,202.4z"/>
+        <path fill="var(--ink)" d="M78.9,297.7c-27.4,0-49.7-22.3-49.7-49.7V78.9c0-27.4,22.3-49.7,49.7-49.7c21.1,0,39.2,13.3,46.4,31.9h30.5C147.7,26.1,116.3,0,78.9,0C35.4,0,0,35.4,0,78.9v169.2C0,291.6,35.4,327,78.9,327c37.4,0,68.8-26.1,76.9-61.1h-30.5C118.1,284.5,100,297.7,78.9,297.7z"/>
+      </svg>
+      <span class="word"><span class="c1">CHIF</span> <span class="c2">LOANS</span></span>
+    </button>
+
+    <nav class="primary" id="primaryNav">
+      <a href="#/" data-route="/">Home</a>
+      <a href="#/loan-types" data-route="/loan-types">Loan Types</a>
+      <a href="#/quick-app" data-route="/quick-app">Quick App</a>
+      <a href="#/partner" data-route="/partner">Become a Partner</a>
+      <a href="#/book" data-route="/book">Book a Time</a>
+      <a href="#/where-we-fund" data-route="/where-we-fund">Where We Fund</a>
+    </nav>
+
+    <div class="head-actions">
+      <a class="phone-link" href="tel:19544710235">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        954-471-0235
+      </a>
+      <a class="btn btn-outline" href="#/quick-app">Apply Now</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<div class="page active" id="page-/">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Business-Purpose Lending &middot; Nationwide</p>
+        <h1>We close the loans other lenders walk away from.</h1>
+        <p class="sub">Hard money, DSCR, bridge, construction, and private capital for real estate investors &mdash; from your first deal to your fiftieth. Fast, creative, and always compliant.</p>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href="#/quick-app">Start a Quick App</a>
+          <a class="btn btn-outline btn-lg" href="https://calendar.app.google/pSnhQVVZ1xTEMV1Z8" target="_blank" rel="noopener">Book a Call</a>
+        </div>
+        <div class="trust-strip">
+          <div><strong>5 business days</strong><span>Fastest closings on record*</span></div>
+          <div><strong>50 states</strong><span>Nationwide, case by case in 5</span></div>
+          <div><strong>Investor-first</strong><span>No gouging, no games</span></div>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <p class="eyebrow">What we lend on</p>
+        <h3>Business-purpose only</h3>
+        <div class="spec-row"><span class="k">Property use</span><span class="v">Investment / commercial</span></div>
+        <div class="spec-row"><span class="k">Borrower</span><span class="v">Entity or individual</span></div>
+        <div class="spec-row"><span class="k">Transaction</span><span class="v">Purchase or refinance</span></div>
+        <div class="spec-row"><span class="k">Experience</span><span class="v">First-timers to developers</span></div>
+        <div class="spec-row"><span class="k">Coverage</span><span class="v">Nationwide*</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight">
+    <div class="wrap about-grid">
+      <div>
+        <p class="eyebrow">Why CHIF Loans exists</p>
+        <h2 style="font-size:26px;margin-top:10px;">We got tired of watching brokers gouge clients, so we built something else.</h2>
+        <p class="lead" style="margin-top:14px;">Before CHIF Loans, we worked for a lender whose entire pitch was &ldquo;let us close your dead loans.&rdquo; We took the deals every other shop had already rejected and figured out &mdash; creatively, and always within guidelines &mdash; how to get them closed. That's still how we run this company. No pressure tactics, no padded fees, just people who genuinely want your deal to work.</p>
+      </div>
+      <div>
+        <div class="pillbox">
+          <h4>Who we help</h4>
+          <p>Current and prospective real estate investors &mdash; first-timers, seasoned landlords, flippers, and developers, all working toward the same thing: getting a deal funded.</p>
+        </div>
+        <div class="pillbox">
+          <h4>What You Can Expect</h4>
+          <p>A sense of assurance that someone actually has your back on the file &mdash; from application to the closing table.</p>
+        </div>
+        <div class="pillbox">
+          <h4>Purchases and refinances</h4>
+          <p>Whether you're acquiring your next investment property or drawing liquidity from one you already own, we structure the loan around your goal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tagline">
+    <div class="wrap">
+      <span class="mark">THE MATH</span>
+      <p>Credit. Cash flow. Collateral. Two out of three usually gets you to a bankable loan.</p>
+    </div>
+  </section>
+
+  <section class="band-dark cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Tell us about your deal.</h2>
+        <p>Five minutes now saves everyone a week later. Start a quick app or grab time on the calendar.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a class="btn btn-primary btn-lg" href="#/quick-app">Start a Quick App</a>
+        <a class="btn btn-outline btn-lg" style="color:var(--paper);border-color:rgba(245,248,249,0.3);" href="#/book">Book a Time</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= LOAN TYPES ================= -->
+<div class="page" id="page-/loan-types">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Loan Types</p>
+      <h1>Capital for every stage of the deal.</h1>
+      <p>Every transaction is different, and terms are built around your specific deal and borrower profile. This is the short list of what we lend on &mdash; tell us the details and we'll tell you what's possible.</p>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="card-grid">
+
+        <div class="loan-card">
+          <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>Hard Money Loans</h3>
+          <p>Short-term, asset-based capital that moves fast when timing matters more than a perfect file.</p>
+        </div>
+
+        <div class="loan-card">
+          <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 15l4-6 4 3 5-8"/></svg></div>
+          <h3>DSCR Loans</h3>
+          <p>Qualify off the property's rental cash flow instead of your personal income or tax returns.</p>
+        </div>
+
+        <div class="loan-card">
+          <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V10l7-6 7 6v11M9 21v-6h6v6"/></svg></div>
+          <h3>Fix &amp; Flip Loans</h3>
+          <p>Purchase and rehab financing structured around your budget and your after-repair value.</p>
+        </div>
+
+        <div class="loan-card">
+          <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 12l4-4M4 12l4 4M20 12l-4-4M20 12l-4 4"/></svg></div>
+          <h3>Bridge Loans</h3>
+          <p>Close the gap between selling one property and buying the next without missing the window.</p>
+        </div>
+
+        <div class="loan-card">
+          <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M4 20V10l4-3 4 3v10M12 20v-6l4-2 4 2v6M6 7l2-2 2 2"/></svg></div>
+          <h3>Construction Loans</h3>
+          <p>Ground-up and vertical construction financing for builders and developers, draw by draw.</p>
+        </div>
+
+        <div class="loan-card">
+          <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6M3 21h18"/></svg></div>
+          <h3>Small Balance Commercial</h3>
+          <p>Financing for smaller commercial assets &mdash; multifamily, mixed-use, retail &mdash; that big banks skip.</p>
+        </div>
+
+        <div class="loan-card">
+          <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Private Loans</h3>
+          <p>Access to a network of private lenders when a deal needs a custom, one-off structure.</p>
+        </div>
+
+      </div>
+
+      <div class="note-box">Rates, terms, and structure vary loan to loan &mdash; we're intentionally not publishing generic numbers here because your deal isn't generic. <a href="#/quick-app" style="color:var(--blue-deep);font-weight:700;">Start a quick app</a> and we'll come back with real terms.</div>
+    </div>
+  </section>
+
+  <section class="band tight">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:26px;">
+        <p class="eyebrow">Speak the language</p>
+        <h2 style="font-size:23px;margin-top:8px;">A short glossary</h2>
+      </div>
+      <dl class="glossary">
+        <div class="g-row"><dt>ARV</dt><dd>After Repair Value &mdash; the estimated value of a property once renovations are complete.</dd></div>
+        <div class="g-row"><dt>DSCR</dt><dd>Debt Service Coverage Ratio &mdash; measures whether a property's income covers its own mortgage payment.</dd></div>
+        <div class="g-row"><dt>LTV</dt><dd>Loan-to-Value &mdash; the loan amount compared to the appraised value of the property.</dd></div>
+        <div class="g-row"><dt>Bridge Loan</dt><dd>Short-term financing that bridges the gap between buying a new property and selling an existing one.</dd></div>
+        <div class="g-row"><dt>Cap Rate</dt><dd>Net operating income divided by purchase price &mdash; a quick read on potential return.</dd></div>
+        <div class="g-row"><dt>Clear to Close (CTC)</dt><dd>The lender has signed off &mdash; the transaction is ready to close.</dd></div>
+      </dl>
+    </div>
+  </section>
+</div>
+
+<!-- ================= QUICK APP ================= -->
+<div class="page" id="page-/quick-app">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Quick App</p>
+      <h1>Get a soft-inquiry look at your deal.</h1>
+      <p>No credit pull, no obligation. This just gives us enough to give you a real, informed answer &mdash; usually within one business day.</p>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap app-shell">
+      <form class="appform" id="quickApp">
+
+        <fieldset>
+          <legend>The Loan</legend>
+          <div class="f-row">
+            <div class="f-group">
+              <label for="loanType">Loan type</label>
+              <select id="loanType" required>
+                <option value="">Select one</option>
+                <option>Hard Money</option>
+                <option>DSCR</option>
+                <option>Fix &amp; Flip</option>
+                <option>Bridge</option>
+                <option>Construction</option>
+                <option>Small Balance Commercial</option>
+                <option>Private / Not sure</option>
+              </select>
+            </div>
+            <div class="f-group">
+              <label for="txnType">Transaction type</label>
+              <select id="txnType" required>
+                <option value="">Select one</option>
+                <option>Purchase</option>
+                <option>Refinance &ndash; Rate &amp; Term</option>
+                <option>Refinance &ndash; Cash Out</option>
+                <option>Construction Draw</option>
+              </select>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <label for="propValue">Purchase price / est. value</label>
+              <input type="text" id="propValue" inputmode="numeric" placeholder="$" required />
+            </div>
+            <div class="f-group">
+              <label for="loanAmount">Loan amount requested</label>
+              <input type="text" id="loanAmount" inputmode="numeric" placeholder="$" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>The Property</legend>
+          <div class="f-group">
+            <label for="propAddress">Property address</label>
+            <input type="text" id="propAddress" placeholder="Street address" required />
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <label for="propCity">City</label>
+              <input type="text" id="propCity" required />
+            </div>
+            <div class="f-group">
+              <label for="propState">State</label>
+              <input type="text" id="propState" maxlength="2" placeholder="e.g. FL" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>You</legend>
+          <div class="f-row">
+            <div class="f-group">
+              <label for="entity">Borrowing as</label>
+              <select id="entity" required>
+                <option value="">Select one</option>
+                <option>LLC / Entity</option>
+                <option>Individual</option>
+                <option>Not yet formed</option>
+              </select>
+            </div>
+            <div class="f-group">
+              <label for="credit">Estimated credit score</label>
+              <select id="credit" required>
+                <option value="">Select one</option>
+                <option>740+</option>
+                <option>680&ndash;739</option>
+                <option>620&ndash;679</option>
+                <option>Below 620</option>
+              </select>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <label for="experience">Investing experience</label>
+              <select id="experience" required>
+                <option value="">Select one</option>
+                <option>First deal</option>
+                <option>1&ndash;3 deals</option>
+                <option>4&ndash;10 deals</option>
+                <option>10+ deals</option>
+              </select>
+            </div>
+            <div class="f-group">
+              <label for="closeDate">Target close date</label>
+              <input type="date" id="closeDate" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Contact</legend>
+          <div class="f-row">
+            <div class="f-group">
+              <label for="fullName">Full name</label>
+              <input type="text" id="fullName" required />
+            </div>
+            <div class="f-group">
+              <label for="cPhone">Phone</label>
+              <input type="tel" id="cPhone" required />
+            </div>
+          </div>
+          <div class="f-group">
+            <label for="cEmail">Email</label>
+            <input type="email" id="cEmail" required />
+          </div>
+          <div class="f-group">
+            <label for="notes">Anything else we should know</label>
+            <textarea id="notes" placeholder="Optional"></textarea>
+          </div>
+        </fieldset>
+
+        <button class="btn btn-primary btn-block btn-lg" type="submit">Submit Quick App</button>
+        <p class="form-foot">Submitting opens your email client with everything filled in and addressed to us &mdash; review it and hit send.</p>
+        <div id="app-success">Your email is ready to send &mdash; check your email app. We typically reply within one business day.</div>
+      </form>
+
+      <div>
+        <div class="side-card">
+          <h4>What happens next</h4>
+          <ul>
+            <li>We review your quick app the same day.</li>
+            <li>If it looks bankable, we call or email with real terms.</li>
+            <li>You decide if it's worth moving forward &mdash; no pressure either way.</li>
+          </ul>
+        </div>
+        <div class="side-card">
+          <h4>Prefer to talk first?</h4>
+          <p>Skip the form and grab time directly on the calendar.</p>
+          <a class="btn btn-outline btn-block" style="margin-top:12px;" href="https://calendar.app.google/pSnhQVVZ1xTEMV1Z8" target="_blank" rel="noopener">Book a Time</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= BECOME A PARTNER ================= -->
+<div class="page" id="page-/partner">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Become a Partner</p>
+      <h1>Bring us your deal, keep your relationship.</h1>
+      <p>Brokers and referral partners are a big part of how we do business. Send us a borrower who needs creative, fast, compliant capital &mdash; we'll co-broker it and protect your seat at the table.</p>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="split-card">
+        <div class="p-side">
+          <h3>How co-brokering works with us</h3>
+          <ol class="step-list">
+            <li><span class="n">01</span><span>Send us the borrower and the basics of the deal.</span></li>
+            <li><span class="n">02</span><span>We work the file together &mdash; you stay in the loop the whole way.</span></li>
+            <li><span class="n">03</span><span>Loan closes, referral fee is honored, relationship stays yours.</span></li>
+          </ol>
+        </div>
+        <div class="p-side">
+          <h3>Submit a partner inquiry</h3>
+          <p>Fill out our short partner form and we'll follow up to talk specifics.</p>
+          <a class="btn btn-primary btn-block btn-lg" style="margin-top:18px;" href="https://docs.google.com/forms/d/e/1FAIpQLSfxwAEs0moL_Ml2r8WKxQPFmTiMMA-HUkP1CQV66rWdyOXgGg/viewform?usp=publish-editor" target="_blank" rel="noopener">Open Partner Form</a>
+          <p style="margin-top:14px;font-size:13px;">Prefer email? Reach out directly at <a href="mailto:info@chifhomes.com" style="color:var(--blue-deep);font-weight:700;">info@chifhomes.com</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= BOOK A TIME ================= -->
+<div class="page" id="page-/book">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Book a Time</p>
+      <h1>Let's talk through the right loan.</h1>
+      <p>Not sure whether this is a DSCR deal, a bridge, or something else entirely? Fifteen minutes usually sorts it out.</p>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="split-card">
+        <div class="p-side">
+          <h3>What to have ready</h3>
+          <ol class="step-list">
+            <li><span class="n">01</span><span>The property address, or the market you're targeting.</span></li>
+            <li><span class="n">02</span><span>Rough numbers &mdash; purchase price, value, and how much you need.</span></li>
+            <li><span class="n">03</span><span>Your timeline &mdash; especially if you're already under contract.</span></li>
+          </ol>
+        </div>
+        <div class="p-side" style="display:flex;flex-direction:column;justify-content:center;">
+          <h3>Pick a time</h3>
+          <p>Opens our live calendar in a new tab &mdash; pick whatever works for you.</p>
+          <a class="btn btn-primary btn-block btn-lg" style="margin-top:18px;" href="https://calendar.app.google/pSnhQVVZ1xTEMV1Z8" target="_blank" rel="noopener">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= WHERE WE FUND ================= -->
+<div class="page" id="page-/where-we-fund">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Where We Fund</p>
+      <h1>Nationwide, with five exceptions.</h1>
+      <p>We fund business-purpose loans across the country. A handful of states require additional licensing for this type of lending, so those are reviewed case by case rather than off a standard playbook.</p>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="state-grid" id="stateGrid"></div>
+      <div class="legend">
+        <div class="item"><span class="swatch"></span>Standard nationwide funding</div>
+        <div class="item"><span class="swatch exception"></span>Case by case &mdash; AZ, CA, NM, NV, UT</div>
+      </div>
+      <div class="note-box">In a case-by-case state? It doesn't mean no &mdash; it means we look at the specific loan, the specific structure, and figure out what's required before we quote it. <a href="#/quick-app" style="color:var(--blue-deep);font-weight:700;">Start a quick app</a> and we'll tell you exactly where things stand.</div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <div class="brand">
+          <svg viewBox="0 0 245 327" aria-hidden="true" style="width:32px;height:32px;">
+            <polygon fill="var(--blue)" points="86.1,132.8 118.8,103.8 118.8,61.1 86.1,80.6"/>
+            <polygon fill="var(--blue)" points="193.8,80.6 161.2,61.1 161.2,103.8 193.8,132.7"/>
+            <path fill="var(--blue)" d="M242.9,202.4l-49.1-43.6l-32.7-29l-17.4-15.5c-2.1-1.9-5.4-1.9-7.5,0l-17.5,15.5l-32.7,29l-49.1,43.5c-3.9,3.4-1.4,9.9,3.7,9.9h45.3v53.6h32.7v-53.6h42.4v53.6h32.7v-53.6h45.3C244.4,212.2,246.8,205.8,242.9,202.4z"/>
+            <path fill="var(--paper)" d="M78.9,297.7c-27.4,0-49.7-22.3-49.7-49.7V78.9c0-27.4,22.3-49.7,49.7-49.7c21.1,0,39.2,13.3,46.4,31.9h30.5C147.7,26.1,116.3,0,78.9,0C35.4,0,0,35.4,0,78.9v169.2C0,291.6,35.4,327,78.9,327c37.4,0,68.8-26.1,76.9-61.1h-30.5C118.1,284.5,100,297.7,78.9,297.7z"/>
+          </svg>
+          <span class="word"><span class="c1">CHIF</span> <span class="c2">LOANS</span></span>
+        </div>
+        <p>Business-purpose real estate financing for investors, builders, and developers &mdash; nationwide, deal by deal.</p>
+      </div>
+
+      <div>
+        <h5>Get In Touch</h5>
+        <div class="contact-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>3325 S University Drive, Suite 103<br/>Davie, FL 33328</span>
+        </div>
+        <div class="contact-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:19544710235">954-471-0235</a>
+        </div>
+        <div class="contact-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 4 8 9 8-9"/></svg>
+          <a href="mailto:info@chifhomes.com">info@chifhomes.com</a>
+        </div>
+      </div>
+
+      <div>
+        <h5>Explore</h5>
+        <ul class="flinks">
+          <li><a href="#/loan-types">Loan Types</a></li>
+          <li><a href="#/quick-app">Quick App</a></li>
+          <li><a href="#/partner">Become a Partner</a></li>
+          <li><a href="#/book">Book a Time</a></li>
+          <li><a href="#/where-we-fund">Where We Fund</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="disclosure">
+      <p>CHIF Loans is a DBA of Cash Homebuyers, LLC (also DBA CHIF Homes), based in Davie, Florida.</p>
+      <p>All loans offered are business-purpose loans for investment and commercial real estate only, and are not available for personal, family, or household use. CHIF Loans is not a licensed mortgage broker in every state; in states that require licensing for this type of lending &mdash; including Arizona, California, New Mexico, Nevada, and Utah &mdash; transactions are evaluated case by case and may be arranged through a licensed lending partner.</p>
+      <p>&copy; <span id="year"></span> CHIF Loans. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var STATES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+  var EXCEPTIONS = {"AZ":1,"CA":1,"NM":1,"NV":1,"UT":1};
+  var grid = document.getElementById("stateGrid");
+  if (grid) {
+    STATES.forEach(function(s){
+      var d = document.createElement("div");
+      d.className = "state-chip" + (EXCEPTIONS[s] ? " exception" : "");
+      d.textContent = s;
+      grid.appendChild(d);
+    });
+  }
+
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  var routes = ["/", "/loan-types", "/quick-app", "/partner", "/book", "/where-we-fund"];
+  var navLinks = document.querySelectorAll('nav.primary a');
+  var nav = document.getElementById('primaryNav');
+  var menuToggle = document.getElementById('menuToggle');
+
+  function currentRoute(){
+    var h = location.hash.replace(/^#/, '');
+    if (!h) h = '/';
+    return routes.indexOf(h) === -1 ? '/' : h;
+  }
+
+  function render(){
+    var route = currentRoute();
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    var target = document.getElementById('page-' + route);
+    if (target) target.classList.add('active');
+    navLinks.forEach(function(a){
+      if (a.getAttribute('data-route') === route) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+    window.scrollTo(0, 0);
+    nav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  window.addEventListener('hashchange', render);
+  window.go = function(route){ location.hash = '#' + route; };
+  render();
+
+  menuToggle.addEventListener('click', function(){
+    var isOpen = nav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  var form = document.getElementById('quickApp');
+  var successBox = document.getElementById('app-success');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    var val = function(id){ return document.getElementById(id).value.trim(); };
+    var lines = [
+      "New Quick App Submission",
+      "",
+      "LOAN",
+      "Loan type: " + val('loanType'),
+      "Transaction type: " + val('txnType'),
+      "Purchase price / est. value: " + val('propValue'),
+      "Loan amount requested: " + val('loanAmount'),
+      "",
+      "PROPERTY",
+      "Address: " + val('propAddress'),
+      "City: " + val('propCity'),
+      "State: " + val('propState'),
+      "",
+      "BORROWER",
+      "Borrowing as: " + val('entity'),
+      "Estimated credit score: " + val('credit'),
+      "Investing experience: " + val('experience'),
+      "Target close date: " + val('closeDate'),
+      "",
+      "CONTACT",
+      "Name: " + val('fullName'),
+      "Phone: " + val('cPhone'),
+      "Email: " + val('cEmail'),
+      "",
+      "NOTES",
+      val('notes') || "(none)"
+    ];
+
+    var subject = encodeURIComponent("Quick App - " + (val('fullName') || "New Inquiry"));
+    var body = encodeURIComponent(lines.join("\n"));
+    window.location.href = "mailto:info@chifhomes.com?subject=" + subject + "&body=" + body;
+
+    successBox.classList.add('show');
+  });
+})();
+</script>
