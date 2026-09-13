@@ -661,6 +661,7 @@
             <label for="notes">Anything else we should know</label>
             <textarea id="notes" placeholder="Optional"></textarea>
           </div>
+          <input type="text" id="hpField" name="_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
         </fieldset>
 
         <button class="btn btn-primary btn-block btn-lg" type="submit" id="app-submit-btn">Submit Quick App</button>
@@ -878,9 +879,6 @@
     menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 
-  var SUPABASE_URL = "https://zwoknvgmciqghjyyhoki.supabase.co";
-  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3b2tudmdtY2lxZ2hqeXlob2tpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNzQ2OTIsImV4cCI6MjEwMTk1MDY5Mn0.2aNIYwsP40EKvmKvunvK9Mc27IgC2R3qB0kF8cEnBEc";
-
   var form = document.getElementById('quickApp');
   var successBox = document.getElementById('app-success');
   var errorBox = document.getElementById('app-error');
@@ -906,7 +904,8 @@
       full_name: val('fullName'),
       phone: val('cPhone'),
       email: val('cEmail'),
-      notes: val('notes') || null
+      notes: val('notes') || null,
+      _hp: document.getElementById('hpField') ? document.getElementById('hpField').value : ''
     };
 
     successBox.classList.remove('show');
@@ -914,14 +913,9 @@
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
 
-    fetch(SUPABASE_URL + "/rest/v1/quick_app_submissions", {
+    fetch("/api/quick-app", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
-        "Prefer": "return=minimal"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     }).then(function(res){
       submitBtn.disabled = false;
