@@ -103,7 +103,7 @@ module.exports = async function handler(req, res) {
     }
   } catch (err) {
     console.error("Supabase request failed", err);
-    res.status(502).json({ ok: false, error: "db_request_failed", debug: String(err && err.stack || err), hasFetch: typeof fetch });
+    res.status(502).json({ ok: false, error: "db_request_failed", debug: String(err && err.stack || err), cause: String(err && err.cause || "none") });
     return;
   }
 
